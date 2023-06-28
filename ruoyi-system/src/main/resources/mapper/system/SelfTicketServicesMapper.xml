@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.SelfTicketServicesMapper">
-    
+
     <resultMap type="SelfTicketServices" id="SelfTicketServicesResult">
         <result property="id"    column="id"    />
         <result property="ticketId"    column="ticket_id"    />
@@ -19,9 +19,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select id, ticket_id, cn_id, scheduled_date, visitor_in_time, visitor_out_time, state_visit, type_ticket from self_ticket_services
     </sql>
 
+
+
+    <select id="selectSelfTicketServicesByCnId" parameterType="java.lang.String" resultMap="SelfTicketServicesResult">
+        select *
+        from self_ticket_services
+        <where>
+            cn_id = #{cnId}
+        </where>
+    </select>
+
+
+
     <select id="selectSelfTicketServicesList" parameterType="SelfTicketServices" resultMap="SelfTicketServicesResult">
         <include refid="selectSelfTicketServicesVo"/>
-        <where>  
+        <where>
             <if test="ticketId != null "> and ticket_id like concat('%', #{ticketId}, '%')</if>
             <if test="cnId != null  and cnId != ''"> and cn_id like concat('%', #{cnId}, '%')</if>
             <if test="params.beginScheduledDate != null and params.beginScheduledDate != '' and params.endScheduledDate != null and params.endScheduledDate != ''"> and scheduled_date between #{params.beginScheduledDate} and #{params.endScheduledDate}</if>
@@ -31,12 +43,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="typeTicket != null  and typeTicket != ''"> and type_ticket like concat('%', #{typeTicket}, '%')</if>
         </where>
     </select>
-    
+
     <select id="selectSelfTicketServicesById" parameterType="Long" resultMap="SelfTicketServicesResult">
         <include refid="selectSelfTicketServicesVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertSelfTicketServices" parameterType="SelfTicketServices" useGeneratedKeys="true" keyProperty="id">
         insert into self_ticket_services
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -73,14 +85,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </update>
 
+    <update id="updateVisitorInTime" parameterType="java.lang.String">
+        UPDATE self_ticket_services
+        SET visitor_in_time = NOW(),
+        state_visit = 1
+        WHERE cn_id = #{cnId}
+    </update>
+
+    <update id="updateVisitorOutTime" parameterType="java.lang.String">
+        UPDATE self_ticket_services
+        SET visitor_out_time = NOW(),
+            state_visit = 0
+        WHERE cn_id = #{cnId}
+    </update>
+
     <delete id="deleteSelfTicketServicesById" parameterType="Long">
         delete from self_ticket_services where id = #{id}
     </delete>
 
     <delete id="deleteSelfTicketServicesByIds" parameterType="String">
-        delete from self_ticket_services where id in 
+        delete from self_ticket_services where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
+
+
 </mapper>

@@ -42,3 +42,35 @@ export function delTicket_services(id) {
     method: 'delete'
   })
 }
+
+
+
+// 游客预约
+export function appointTicket_services(data) {
+  return request({
+    url: '/system/ticket_services/appoint',
+    method: 'post',
+    data: data
+  })
+}
+
+export function checkInfoTicket_services(id) {
+  return request({
+    url: '/system/ticket_services/checkInfo/'+id,
+    method: 'get'
+  })
+}
+
+export function inParkTicket_services(id) {
+  return request({
+    url: '/system/ticket_services/inPark/'+id,
+    method: 'get'
+  })
+}
+
+export function outParkTicket_services(id) {
+  return request({
+    url: '/system/ticket_services/outPark/'+id,
+    method: 'get'
+  })
+}

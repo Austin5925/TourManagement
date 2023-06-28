@@ -23,7 +23,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 游客Controller
- * 
+ *
  * @author ruoyi
  * @date 2023-06-26
  */
@@ -101,4 +101,18 @@ public class SelfVisitorsController extends BaseController
     {
         return toAjax(selfVisitorsService.deleteSelfVisitorsByIds(ids));
     }
+
+//
+//
+//    /**
+//     * 游客预约
+//     */
+//    @PreAuthorize("@ss.hasPermi('system:visitors:appoint')")
+//    @Log(title = "游客", businessType = BusinessType.INSERT)
+//    @PostMapping("/appoint")
+//    public AjaxResult appoint(@RequestBody SelfVisitors selfVisitors)
+//    {
+//
+//        return toAjax(selfVisitorsService.insertSelfVisitors(selfVisitors));
+//    }
 }

@@ -9,7 +9,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 票务对象 self_ticket_services
- * 
+ *
  * @author ruoyi
  * @date 2023-06-26
  */
@@ -34,13 +34,13 @@ public class SelfTicketServices extends BaseEntity
     private Date scheduledDate;
 
     /** 入园时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "入园时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "入园时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date visitorInTime;
 
     /** 出园时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "出园时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "出园时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date visitorOutTime;
 
     /** 参观状态 */
@@ -51,78 +51,94 @@ public class SelfTicketServices extends BaseEntity
     @Excel(name = "门票类型")
     private String typeTicket;
 
-    public void setId(Long id) 
+
+    private String visitorsName;
+    private String phoneNumber;
+
+    public String getVisitorsName() {
+        return visitorsName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+
+
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    public Long getId() 
+    public Long getId()
     {
         return id;
     }
-    public void setTicketId(Long ticketId) 
+    public void setTicketId(Long ticketId)
     {
         this.ticketId = ticketId;
     }
 
-    public Long getTicketId() 
+    public Long getTicketId()
     {
         return ticketId;
     }
-    public void setCnId(String cnId) 
+    public void setCnId(String cnId)
     {
         this.cnId = cnId;
     }
 
-    public String getCnId() 
+    public String getCnId()
     {
         return cnId;
     }
-    public void setScheduledDate(Date scheduledDate) 
+    public void setScheduledDate(Date scheduledDate)
     {
         this.scheduledDate = scheduledDate;
     }
 
-    public Date getScheduledDate() 
+    public Date getScheduledDate()
     {
         return scheduledDate;
     }
-    public void setVisitorInTime(Date visitorInTime) 
+    public void setVisitorInTime(Date visitorInTime)
     {
         this.visitorInTime = visitorInTime;
     }
 
-    public Date getVisitorInTime() 
+    public Date getVisitorInTime()
     {
         return visitorInTime;
     }
-    public void setVisitorOutTime(Date visitorOutTime) 
+    public void setVisitorOutTime(Date visitorOutTime)
     {
         this.visitorOutTime = visitorOutTime;
     }
 
-    public Date getVisitorOutTime() 
+    public Date getVisitorOutTime()
     {
         return visitorOutTime;
     }
-    public void setStateVisit(String stateVisit) 
+    public void setStateVisit(String stateVisit)
     {
         this.stateVisit = stateVisit;
     }
 
-    public String getStateVisit() 
+    public String getStateVisit()
     {
         return stateVisit;
     }
-    public void setTypeTicket(String typeTicket) 
+    public void setTypeTicket(String typeTicket)
     {
         this.typeTicket = typeTicket;
     }
 
-    public String getTypeTicket() 
+    public String getTypeTicket()
     {
         return typeTicket;
     }
+
+
 
     @Override
     public String toString() {
@@ -135,6 +151,10 @@ public class SelfTicketServices extends BaseEntity
             .append("visitorOutTime", getVisitorOutTime())
             .append("stateVisit", getStateVisit())
             .append("typeTicket", getTypeTicket())
+            .append("visitorsName", getVisitorsName())
+            .append("phoneNumber", getPhoneNumber())
             .toString();
     }
+
+
 }
